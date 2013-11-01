@@ -1,0 +1,74 @@
+package ${package};
+
+/**
+ * ${class_comment}
+ */
+public class ${classname} {
+
+    private static final String TAG = "${classname}";
+
+    ${response_keys}
+    ${field_statements}
+
+    /** Resolve ${classname} data from json */
+    public static ${classname} fromJson(JSONObject object) {
+
+        try {
+            ${classname} ${classname_lower} = new ${classname}();
+            if (!isDataValid(object)) {
+                throw new Exception("response data invalid. response: " + object.toString());
+            }
+
+            ${field_assigements}
+            return ${classname_lower};
+        } catch (Exception e) {
+            LogUtils.d(TAG, "Response data invalid.");
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    /** Resolve List ${classname} data from json array */
+    public static List<${classname}> fromJsonArray(JSONArray object) {
+        List<${classname}> ${classname_lower}List = new ArrayList<${classname}>();
+        try {
+            for (int i = 0; i < object.length(); i++) {
+                JSONObject data = object.getJSONObject(i);
+
+                LogUtils.d(TAG, "Resolve ${classname_lower} data: " + data);
+                if (!isDataValid(data)) {
+                    throw new Exception("response data invalid. response: " + data.toString());
+                }
+
+                ${classname} ${classname_lower} = ${classname}.fromJson(data);
+                if (${classname_lower} != null) {
+                    ${classname_lower}List.add(${classname_lower});
+                }
+            }
+            return ${classname_lower}List;
+        } catch (Exception e) {
+            LogUtils.d(TAG, "Response data invalid.");
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    ${from_json_hash_map}
+
+    /**
+     * Check if Response data valid
+     * @param object response data from server
+     * @return
+     */
+    private static boolean isDataValid(JSONObject object) {
+        return object != null ${data_validation};
+    }
+
+    @Override
+    public String toString() {
+        return ${to_string}
+    }
+
+    ${setting_getting}
+    ${object_manager}
+}

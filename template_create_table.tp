@@ -1,0 +1,11 @@
+
+    /**
+     * Statement for create table ${classname_lower}
+     */
+    public static final String TABLE_CREATE_${classname_upper} = "create table "
+            + Table.${classname}DB.TABLE_NAME + "("
+            + Table.${classname}DB._ID  + " INTEGER PRIMARY KEY,"
+            + Table.${classname}DB.COLUMN_NAME_CREATE_DATE + " INTEGER,"
+            + Table.${classname}DB.COLUMN_NAME_MODIFICATION_DATE + " INTEGER"
+            ${columns_create_statement}
+            + ");";

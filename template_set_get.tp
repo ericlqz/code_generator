@@ -1,0 +1,8 @@
+
+    public ${field_type} get${field_capitalize}() {
+        return ${field_lower};
+    }
+
+    public void set${field_capitalize}(${field_type} ${field_lower}) {
+        this.${field_lower} = ${field_lower};
+    }

@@ -1,0 +1,306 @@
+{
+    "templates": {
+        "object_template":"template_data_object.tp",
+        "object_json_hashmap_template":"template_data_object_jsonhashmap.tp"
+    },
+    "objects":
+    [
+        {
+            "classname":"account",
+            "class_comment":"帐户信息",
+            "package":"com.xxsd.cbc.model",
+            "path":"/home/eric/workspace/CBC/src/main/java/com/xxsd/cbc/model/Account.java",
+            "fields":[
+                {"field":"uid", "comment":"UID", "type":"int"},
+                {"field":"token", "comment":"Token", "type":"String"},
+                {"field":"code", "comment":"档案号", "type":"String"}
+            ],
+            "object_manager":false,
+            "rewrite":false
+        },
+        {
+            "classname":"info",
+            "class_comment":"个人信息",
+            "package":"com.xxsd.cbc.model",
+            "path":"/home/eric/workspace/CBC/src/main/java/com/xxsd/cbc/model/Info.java",
+            "fields":[
+                {"field":"name", "comment":"名称", "type":"String", "sqlite_type":"TEXT"},
+                {"field":"pic", "comment":"头像地址", "type":"String", "sqlite_type":"TEXT"},
+                {"field":"gender", "comment":"性别", "type":"String", "sqlite_type":"TEXT"},
+                {"field":"dob", "comment":"生日", "type":"String", "sqlite_type":"TEXT"}
+            ],
+            "object_manager":true,
+            "table_config":{"default_sort_order":"_id ASC"},
+            "rewrite":false
+        },
+        {
+            "classname":"doctor",
+            "class_comment":"医生信息",
+            "package":"com.xxsd.cbc.model",
+            "path":"/home/eric/workspace/CBC/src/main/java/com/xxsd/cbc/model/Doctor.java",
+            "fields":[
+                {"field":"doctor_id", "comment":"医生id", "type":"int", "sqlite_type":"INTEGER"},
+                {"field":"hospital_id", "comment":"医院id", "type":"int", "sqlite_type":"INTEGER"},
+                {"field":"hospital", "comment":"医院名称", "type":"String", "sqlite_type":"TEXT"},
+                {"field":"title", "comment":"医生头衔", "type":"String", "sqlite_type":"TEXT"},
+                {"field":"name", "comment":"姓名", "type":"String", "sqlite_type":"TEXT"},
+                {"field":"pic", "comment":"头像url", "type":"String", "sqlite_type":"TEXT"}
+            ],
+            "object_manager":true,
+            "table_config":{"default_sort_order":"_id ASC"},
+            "rewrite":false
+        },
+        {
+            "classname":"case",
+            "class_comment":"病历",
+            "package":"com.xxsd.cbc.model",
+            "path":"/home/eric/workspace/CBC/src/main/java/com/xxsd/cbc/model/Case.java",
+            "fields":[
+                {"field":"in_time", "comment":"入院时间", "type":"String"},
+                {"field":"out_time", "comment":"出院时间", "type":"String"},
+                {"field":"hospital", "comment":"医院名称", "type":"String"}
+            ],
+            "object_manager":false,
+            "rewrite":false
+        },
+        {
+            "classname":"medicine",
+            "class_comment":"服药计划",
+            "package":"com.xxsd.cbc.model",
+            "path":"/home/eric/workspace/CBC/src/main/java/com/xxsd/cbc/model/Medicine.java",
+            "JsonHashMap":true,
+            "key":"time",
+            "fields":[
+                {"field":"id", "comment":"计划id", "type":"int", "sqlite_type":"INTEGER"},
+                {"field":"name", "comment":"药品名称", "type":"String", "sqlite_type":"TEXT"},
+                {"field":"number", "comment":"数量", "type":"String", "sqlite_type":"TEXT"},
+                {"field":"unit", "comment":"单位", "type":"String", "sqlite_type":"TEXT"},
+                {"field":"mealtime", "comment":"用餐影响 0=无影响，1=饭前，2=饭后", "type":"int", "sqlite_type":"INTEGER"},
+                {"field":"time", "comment":"时间小时", "type":"String", "sqlite_type":"TEXT"}
+            ],
+            "object_manager":true,
+            "table_config":{"default_sort_order":"id ASC"},
+            "rewrite":false
+        },
+        {
+            "classname":"recovery",
+            "class_comment":"康复计划",
+            "package":"com.xxsd.cbc.model",
+            "path":"/home/eric/workspace/CBC/src/main/java/com/xxsd/cbc/model/Recovery.java",
+            "JsonHashMap":true,
+            "key":"time",
+            "fields":[
+                {"field":"id", "comment":"计划", "type":"int", "sqlite_type":"INTEGER"},
+                {"field":"name", "comment":"名称", "type":"String", "sqlite_type":"TEXT"},
+                {"field":"number", "comment":"数量", "type":"String", "sqlite_type":"TEXT"},
+                {"field":"unit", "comment":"单位", "type":"String", "sqlite_type":"TEXT"},
+                {"field":"mealtime", "comment":"用餐影响 0=无影响，1=饭前，2=饭后", "type":"int", "sqlite_type":"INTEGER"},
+                {"field":"time", "comment":"时间小时", "type":"String", "sqlite_type":"TEXT"},
+                {"field":"url", "comment":"视频地址", "type":"String", "sqlite_type":"TEXT"}
+            ],
+            "object_manager":true,
+            "table_config":{"default_sort_order":"id ASC"},
+            "rewrite":false
+        },
+        {
+            "classname":"examination",
+            "class_comment":"体检计划",
+            "package":"com.xxsd.cbc.model",
+            "path":"/home/eric/workspace/CBC/src/main/java/com/xxsd/cbc/model/Examination.java",
+            "JsonHashMap":true,
+            "key":"time",
+            "fields":[
+                {"field":"id", "comment":"计划", "type":"int", "sqlite_type":"INTEGER"},
+                {"field":"name", "comment":"名称", "type":"String", "sqlite_type":"TEXT"},
+                {"field":"type", "comment":"类型 1=血压，2=血脂，3=心率，4=血糖，0=其它", "type":"int", "sqlite_type":"INTEGER"},
+                {"field":"number", "comment":"数量", "type":"String", "sqlite_type":"TEXT"},
+                {"field":"unit", "comment":"单位", "type":"String", "sqlite_type":"TEXT"},
+                {"field":"mealtime", "comment":"用餐影响 0=无影响，1=饭前，2=饭后", "type":"int", "sqlite_type":"INTEGER"},
+                {"field":"time", "comment":"时间小时", "type":"String", "sqlite_type":"TEXT"}
+            ],
+            "object_manager":true,
+            "table_config":{"default_sort_order":"id ASC"},
+            "rewrite":false
+        },
+        {
+            "classname":"structure",
+            "class_comment":"数据结构",
+            "package":"com.xxsd.cbc.model",
+            "path":"/home/eric/workspace/CBC/src/main/java/com/xxsd/cbc/model/Structure.java",
+            "JsonArray":true,
+            "fields":[
+                {"field":"field", "comment":"对应结果提交的字段名", "type":"int", "sqlite_type":"INTEGER"},
+                {"field":"name", "comment":"名称", "type":"String", "sqlite_type":"TEXT"},
+                {"field":"unit", "comment":"单位", "type":"String", "sqlite_type":"TEXT"},
+                {"field":"pid", "comment":"计划id", "type":"int", "sqlite_type":"INTEGER"}
+
+            ],
+            "object_manager":true,
+            "table_config":{"default_sort_order":"_id ASC"},
+            "rewrite":false
+        },
+        {
+            "classname":"case2",
+            "class_comment":"治疗列表",
+            "package":"com.xxsd.cbc.model",
+            "path":"/home/eric/workspace/CBC/src/main/java/com/xxsd/cbc/model/Case2.java",
+            "fields":[
+                {"field":"title", "comment":"标题", "type":"String", "sqlite_type":"TEXT"},
+                {"field":"time", "comment":"入院时间", "type":"String", "sqlite_type":"TEXT"},
+                {"field":"hospital", "comment":"医院名称", "type":"String", "sqlite_type":"TEXT"},
+                {"field":"url", "comment":"链接地址", "type":"String", "sqlite_type":"TEXT"}
+            ],
+            "object_manager":true,
+            "table_config":{"default_sort_order":"_id ASC"},
+            "rewrite":false
+        },
+        {
+            "classname":"review",
+            "class_comment":"复诊列表",
+            "package":"com.xxsd.cbc.model",
+            "path":"/home/eric/workspace/CBC/src/main/java/com/xxsd/cbc/model/Review.java",
+            "fields":[
+                {"field":"title", "comment":"标题", "type":"String", "sqlite_type":"TEXT"},
+                {"field":"time", "comment":"入院时间", "type":"String", "sqlite_type":"TEXT"},
+                {"field":"hospital", "comment":"医院名称", "type":"String", "sqlite_type":"TEXT"},
+                {"field":"url", "comment":"链接地址", "type":"String", "sqlite_type":"TEXT"}
+            ],
+            "object_manager":true,
+            "table_config":{"default_sort_order":"_id ASC"},
+            "rewrite":false
+        },
+        {
+            "classname":"message",
+            "class_comment":"消息",
+            "package":"com.xxsd.cbc.model",
+            "path":"/home/eric/workspace/CBC/src/main/java/com/xxsd/cbc/model/Message.java",
+            "fields":[
+                {"field":"id", "comment":"消息ID", "type":"int", "sqlite_type":"INTEGER"},
+                {"field":"from_id", "comment":"发送者ID", "type":"int", "sqlite_type":"INTEGER"},
+                {"field":"from_name", "comment":"发送者姓名", "type":"String", "sqlite_type":"TEXT"},
+                {"field":"to_id", "comment":"收信人者ID", "type":"int", "sqlite_type":"TEXT"},
+                {"field":"to_name", "comment":"收信人者姓名", "type":"String", "sqlite_type":"TEXT"},
+                {"field":"send_time", "comment":"发送时间", "type":"String", "sqlite_type":"TEXT"},
+                {"field":"content", "comment":"消息内容", "type":"String", "sqlite_type":"TEXT"},
+                {"field":"read", "comment":"是否已读", "type":"int", "sqlite_type":"INTEGER"}
+            ],
+            "object_manager":true,
+            "table_config":{"default_sort_order":"id ASC"},
+            "rewrite":false
+        },
+        {
+            "classname":"Food",
+            "class_comment":"饮食",
+            "package":"com.xxsd.cbc.model",
+            "path":"/home/eric/workspace/CBC/src/main/java/com/xxsd/cbc/model/Food.java",
+            "fields":[
+                {"field":"good", "comment":"宜吃", "type":"String", "sqlite_type":"TEXT"},
+                {"field":"good_list", "comment":"宜吃推荐", "type":"String", "sqlite_type":"TEXT"},
+                {"field":"bad", "comment":"忌吃", "type":"String", "sqlite_type":"TEXT"},
+                {"field":"bad_list", "comment":"忌吃推荐", "type":"String", "sqlite_type":"TEXT"}
+            ],
+            "object_manager":true,
+            "table_config":{"default_sort_order":"_id ASC"},
+            "rewrite":false
+        },
+        {
+            "classname":"Drug",
+            "class_comment":"药品",
+            "package":"com.xxsd.cbc.model",
+            "path":"/home/eric/workspace/CBC/src/main/java/com/xxsd/cbc/model/Drug.java",
+            "fields":[
+                {"field":"id", "comment":"药品id", "type":"int", "sqlite_type":"INTEGER"},
+                {"field":"name", "comment":"药品名称", "type":"String", "sqlite_type":"TEXT"},
+                {"field":"desc", "comment":"药品简介", "type":"String", "sqlite_type":"TEXT"},
+                {"field":"url", "comment":"药品图片", "type":"String", "sqlite_type":"TEXT"}
+            ],
+            "object_manager":true,
+            "table_config":{"default_sort_order":"_id ASC"},
+            "rewrite":false
+        },
+        {
+            "classname":"SideEffect",
+            "class_comment":"副作用",
+            "package":"com.xxsd.cbc.model",
+            "path":"/home/eric/workspace/CBC/src/main/java/com/xxsd/cbc/model/SideEffect.java",
+            "fields":[
+                {"field":"ids", "comment":"药品id药品id多个逗号分隔", "type":"String", "sqlite_type":"TEXT"},
+                {"field":"name", "comment":"副作用名称", "type":"String", "sqlite_type":"TEXT"}
+            ],
+            "object_manager":true,
+            "table_config":{"default_sort_order":"_id ASC"},
+            "rewrite":false
+        },
+        {
+            "classname":"FoodData",
+            "class_comment":"饮食搜索结果",
+            "package":"com.xxsd.cbc.model",
+            "path":"/home/eric/workspace/CBC/src/main/java/com/xxsd/cbc/model/FoodData.java",
+            "fields":[
+                {"field":"name", "comment":"名称", "type":"String", "sqlite_type":"TEXT"},
+                {"field":"desc", "comment":"简介", "type":"String", "sqlite_type":"TEXT"}
+            ],
+            "object_manager":false,
+            "table_config":{"default_sort_order":"_id ASC"},
+            "rewrite":false
+        },
+        {
+            "classname":"scene",
+            "class_comment":"人工预约",
+            "package":"com.xxsd.cbc.model",
+            "path":"/home/eric/workspace/CBC/src/main/java/com/xxsd/cbc/model/Scene.java",
+            "fields":[
+                {"field":"memo", "comment":"预约处理内容", "type":"String", "sqlite_type":"TEXT"},
+                {"field":"status", "comment":"状态 0 初始状态  1 等待状态  2 预约结果返回状态", "type":"int", "sqlite_type":"INTEGER"}
+            ],
+            "object_manager":true,
+            "table_config":{"default_sort_order":"_id ASC"},
+            "rewrite":false
+        },
+        {
+            "classname":"remote",
+            "class_comment":"远程预约",
+            "package":"com.xxsd.cbc.model",
+            "path":"/home/eric/workspace/CBC/src/main/java/com/xxsd/cbc/model/Remote.java",
+            "fields":[
+                {"field":"memo", "comment":"预约处理内容", "type":"String", "sqlite_type":"TEXT"},
+                {"field":"address", "comment":"邮寄地址", "type":"String", "sqlite_type":"TEXT"},
+                {"field":"status", "comment":"状态 0 初始状态  1 等待状态  2 预约结果返回状态", "type":"int", "sqlite_type":"INTEGER"}
+            ],
+            "object_manager":true,
+            "table_config":{"default_sort_order":"_id ASC"},
+            "rewrite":false
+        },
+        {
+            "classname":"BloodPressure",
+            "class_comment":"",
+            "package":"com.xxsd.cbc.model",
+            "path":"/home/eric/workspace/CBC/src/main/java/com/xxsd/cbc/model/BloodPressure.java",
+            "fields":[
+                {"field":"high", "comment":"高压", "type":"int", "sqlite_type":"INTEGER"},
+                {"field":"low", "comment":"低压", "type":"int", "sqlite_type":"INTEGER"}
+            ],
+            "object_manager":true,
+            "table_config":{"default_sort_order":"_id ASC"},
+            "rewrite":false
+        },
+        {
+            "classname":"HeartRate",
+            "class_comment":"",
+            "package":"com.xxsd.cbc.model",
+            "path":"/home/eric/workspace/CBC/src/main/java/com/xxsd/cbc/model/HeartRate.java",
+            "fields":[
+                {"field":"rate", "comment":"心率 血糖", "type":"int", "sqlite_type":"INTEGER"}
+            ],
+            "object_manager":true,
+            "table_config":{"default_sort_order":"_id ASC"},
+            "rewrite":false
+        }
+    ],
+    "table_config":{
+        "file_name":"Table",
+        "table_path": "/home/eric/workspace/CBC/src/main/java/com/xxsd/cbc/storage/",
+        "package": "com.xxsd.cbc.storage",
+        "authority": "com.xxsd.cbc.provider.CBC"
+    }
+}

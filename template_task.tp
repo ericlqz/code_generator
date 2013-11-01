@@ -1,0 +1,97 @@
+package ${package};
+
+/**
+ * User: eric
+ * Date: 10/17/13
+ * Time: 8:21 AM
+ *
+ * Model for ${classname} Request
+ */
+public class ${classname}Task extends BaseTask {
+
+    private static final String TAG = "${classname}Task";
+
+    /** ${classname} Url */
+    private static String URL_${classname_upper} = "${request_url}";
+
+    ${request_keys}
+    ${response_keys}
+    ${error_code_keys}
+    private Context mContext;
+    ${request_field_statements}
+    ${response_field_statements}
+    /**
+     * Make ${classname} Request
+     */
+    @Override
+    public void makeRequest() {
+        try {
+            LogUtils.i(TAG, "Request for ${classname_lower} with parameter " ${request_params_to_string});
+
+            RequestParams params = new RequestParams();
+            ${set_request_params_value}
+            post(mContext, URL_${classname_upper}, params);
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public boolean isRequestParamsValid() {
+        return ${request_params_valid}
+    }
+
+    @Override
+    public void resolveSuccess(JSONObject object) {
+        try {
+            if (!isDataValid(object)) {
+                throw new Exception("response data invalid. response: " + object.toString());
+            }
+
+            /**
+             * Json Data Resolve
+             */
+            ${response_data_from_json}
+            /**
+             * Data Storage
+             */
+             // TODO: Deal with the Storage
+        } catch (Exception e) {
+            LogUtils.d(TAG, "Response data invalid.");
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void resolveError(int errorCode) {
+        switch(errorCode) {
+            ${error_code_cases_statements}
+            default:
+                break;
+        }
+    }
+
+    @Override
+    public void requestFailed(String errorDesc) {
+        // TODO: Deal with the Request Failed
+    }
+
+    @Override
+    public void connectionFailed(String errorDesc) {
+        // TODO: Deal with the Connection Failed
+    }
+
+    @Override
+    public void alwaysFinally() {
+        // TODO: Deal with the Connection Failed
+    }
+
+    /**
+     * Check if Response data valid
+     * @param object response data from server
+     * @return
+     */
+    private boolean isDataValid(JSONObject object) {
+        return object != null${is_response_data_valid};
+    }
+}

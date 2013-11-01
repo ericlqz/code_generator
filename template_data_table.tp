@@ -1,0 +1,60 @@
+    /**
+     * ${classname} Table
+     */
+    public static class ${classname}DB implements BaseColumns {
+
+        /**
+         * Constructor
+         */
+        private ${classname}DB() {}
+
+        /**
+         * The table name offered by this provider
+         */
+        public static final String TABLE_NAME = "${classname_lower}";
+
+        /**
+         * The scheme part for this provider's URI
+         */
+        private static final String SCHEME = "content://";
+
+        /**
+         * Path part for the ${classname}s URI
+         */
+        private static final String PATH_${classname_upper} = "/${classname_lower}";
+
+        /**
+         * The content:// style URL for this table
+         */
+        public static final Uri CONTENT_URI =  Uri.parse(SCHEME + AUTHORITY + PATH_${classname_upper});
+
+        /**
+         * The default sort order for this table
+         */
+        public static final String DEFAULT_SORT_ORDER = "${default_sort_order}";
+
+        /**
+         * Column name for the creation timestamp
+         * <P>Type: INTEGER (long from System.curentTimeMillis())</P>
+         */
+        public static final String COLUMN_NAME_CREATE_DATE = "created";
+
+        /**
+         * Column name for the modification timestamp
+         * <P>Type: INTEGER  (long from System.curentTimeMillis())</P>
+         */
+        public static final String COLUMN_NAME_MODIFICATION_DATE = "modified";
+
+        ${columns_define}
+
+        /**
+         * Statement for create table ${classname_lower}
+         */
+        public static final String TABLE_CREATE_${classname_upper} = "create table "
+            + Table.${classname}DB.TABLE_NAME + "("
+            + Table.${classname}DB._ID  + " INTEGER PRIMARY KEY,"
+            + Table.${classname}DB.COLUMN_NAME_CREATE_DATE + " INTEGER,"
+            + Table.${classname}DB.COLUMN_NAME_MODIFICATION_DATE + " INTEGER,"
+            ${columns_create_statement}
+            + ");";
+    }

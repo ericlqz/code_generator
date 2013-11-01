@@ -1,0 +1,159 @@
+
+    public void store() {
+        objects.create(this);
+    }
+
+    public void update() {
+        objects.update(this);
+    }
+
+    public static ObjectManager objects = new ObjectManager();
+
+    /**
+     * Query Manager for ${classname}
+     */
+    public static class ObjectManager {
+
+        private DBHelper mDBHelper;
+        private SQLiteDatabase mDatabase;
+        private Context mContext;
+
+        public void initialize(Context context) {
+            mContext = context;
+            mDBHelper = new DBHelper(context);
+            mDatabase = mDBHelper.getWritableDatabase();
+        }
+
+        public void close() {
+            mDBHelper.close();
+        }
+
+        /**
+         * Add a ${classname} object to Database
+         */
+        public void create(${classname} ${classname_lower}) {
+            try {
+                Log.d(TAG, "try to store ${classname_lower}: " + ${classname_lower});
+                ContentValues values = new ContentValues();
+                ${create_content_values}
+                mDatabase.insert(Table.${classname}DB.TABLE_NAME, null, values);
+
+                mContext.getContentResolver().notifyChange(Table.${classname}DB.CONTENT_URI, null);
+            } catch(Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        /**
+         * Update Specific ${classname} object in Database
+         */
+        public void update(${classname} ${classname_lower}) {
+            try {
+                Log.d(TAG, "try to ${classname_lower}: " + ${classname_lower});
+                ContentValues values = new ContentValues();
+                ${create_content_values}
+                // mDatabase.update(Table.${classname}DB.TABLE_NAME, values, Table.${classname}DB.Stub + " = ?", new String[] {${classname_lower}.getStub()});
+
+                mContext.getContentResolver().notifyChange(Table.${classname}DB.CONTENT_URI, null);
+            } catch(Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        /**
+         * Refresh Databases with new ${classname} objects
+         */
+        public void refresh(List<${classname}> ${classname_lower}List) {
+            LogUtils.d(TAG, "refresh() ${classname_lower}List.size(): " + ${classname_lower}List.size());
+            try {
+                if (CommonUtils.isListNotEmpty(${classname_lower}List)) {
+                    delete();
+                    for (${classname} ${classname_lower} : ${classname_lower}List) {
+                        create(${classname_lower});
+                    }
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        /**
+         * Load all ${classname} object from Database
+         */
+        public List<${classname}> all() {
+            List<${classname}> ${classname_lower}s = new ArrayList<${classname}>();
+            Cursor cursor = mDatabase.query(Table.${classname}DB.TABLE_NAME, null, null, null, null, null, Table.${classname}DB.DEFAULT_SORT_ORDER);
+            cursor.moveToFirst();
+
+            while(!cursor.isAfterLast()) {
+                ${classname} ${classname_lower} = cursorTo${classname}(cursor);
+                if (${classname_lower} != null) {
+                    ${classname_lower}s.add(${classname_lower});
+                }
+                cursor.moveToNext();
+            }
+            cursor.close();
+
+            return ${classname_lower}s;
+        }
+
+        /**
+         * Get Count of ${classname} object in Database
+         */
+        public int getCount() {
+            final String sql = "SELECT COUNT(*) FROM " + Table.${classname}DB.TABLE_NAME;
+            Cursor cursor = mDatabase.rawQuery(sql, null);
+            cursor.moveToFirst();
+
+            int count = cursor.getInt(0);
+            cursor.close();
+            return count;
+        }
+
+        /**
+         * Load page of ${classname} object from Database
+         */
+        public List<${classname}> filter(int start, int count) {
+            List<${classname}> ${classname_lower}s = new ArrayList<${classname}>();
+
+            String limit = start + " , " + count;
+            Cursor cursor = mDatabase.query(Table.${classname}DB.TABLE_NAME, null, null, null, null, null, Table.${classname}DB.DEFAULT_SORT_ORDER, limit);
+            cursor.moveToFirst();
+
+            while(!cursor.isAfterLast()) {
+                ${classname} ${classname_lower} = cursorTo${classname}(cursor);
+                if (${classname_lower} != null) {
+                    ${classname_lower}s.add(${classname_lower});
+                }
+                cursor.moveToNext();
+            }
+            cursor.close();
+
+            return ${classname_lower}s;
+        }
+
+        /**
+         * Delete all ${classname} object in Database
+         */
+        public boolean delete() {
+            int num = mDatabase.delete(Table.${classname}DB.TABLE_NAME, null, null);
+            mContext.getContentResolver().notifyChange(Table.${classname}DB.CONTENT_URI, null);
+            return true;
+        }
+
+        /**
+         * Retrieve ${classname} from Database to Object
+         */
+        private ${classname} cursorTo${classname}(Cursor cursor) {
+            try {
+                ${classname} ${classname_lower} = new ${classname}();
+
+                // ${classname_lower}.setID(cursor.getInt(cursor.getColumnIndex(Table.${classname}DB._ID)));
+                ${cursor_to_field}
+                return ${classname_lower};
+            } catch(Exception e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+    }

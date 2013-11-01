@@ -1,0 +1,317 @@
+{
+    "tasks":[
+        {
+            "classname":"Plan",
+            "request_url":"/plan",
+            "path":"/home/eric/workspace/CBC/src/main/java/com/xxsd/cbc/task/PlanTask.java",
+            "request_params":[
+                {"field":"username", "comment":"用户名", "type":"String"},
+                {"field":"token", "comment":"Token", "type":"String"},
+                {"field":"ptype", "comment":"类型 P,F,D,H,U P=患者用户，F=家属用户，D=医生用户，H=医院用户，U=普通手机用户", "type":"String"}
+            ],
+            "response_params":[
+                {"field":"medicine", "comment":"服药计划", "type":"JSONHashMap", "notnull":true},
+                {"field":"recovery", "comment":"康复计划", "type":"JSONHashMap", "notnull":true},
+                {"field":"examination", "comment":"体检计划", "type":"JSONHashMap", "notnull":true}
+            ],
+            "error_codes":[
+                {"code":0 , "comment":"未知错误"},
+                {"code":1 , "comment":"用户验证失败"}
+            ],
+            "rewrite":false
+        },
+        {
+            "classname":"ExaminationFieldGet",
+            "request_url":"/planGet",
+            "path":"/home/eric/workspace/CBC/src/main/java/com/xxsd/cbc/task/ExaminationFieldGetTask.java",
+            "request_params":[
+                {"field":"username", "comment":"用户名", "type":"String"},
+                {"field":"token", "comment":"Token", "type":"String"},
+                {"field":"pid", "comment":"计划id", "type":"int"}
+            ],
+            "response_params":[
+                {"field":"structure", "comment":"数据结构", "type":"JSONArray", "notnull":true}
+            ],
+            "error_codes":[
+                {"code":0 , "comment":"未知错误"},
+                {"code":1 , "comment":"用户验证失败"},
+                {"code":2 , "comment":"计划id有误"},
+                {"code":3 , "comment":"只有体检才能获取结构数据"}
+            ],
+            "rewrite":false
+        },
+        {
+            "classname":"ExaminationCommit",
+            "request_url":"/planResult",
+            "path":"/home/eric/workspace/CBC/src/main/java/com/xxsd/cbc/task/ExaminationCommitTask.java",
+            "request_params":[
+                {"field":"username", "comment":"用户名", "type":"String"},
+                {"field":"token", "comment":"Token", "type":"String"},
+                {"field":"pid", "comment":"计划id", "type":"int"},
+                {"field":"type", "comment":"类型 medicine=服药,examination=体检,recovery=康复", "type":"String"},
+                {"field":"result", "comment":"提交结果 JsonArray field_id_Int value_值_String", "type":"String"},
+                {"field":"flag", "comment":"完成状态 1=未完成，2=完成有难度，3=完成, 0=未做", "type":"int"},
+                {"field":"time", "comment":"时间", "type":"String"},
+                {"field":"memo", "comment":"患者提交的备注", "type":"String"}
+            ],
+            "response_params":[
+            ],
+            "error_codes":[
+                {"code":0 , "comment":"未知错误"},
+                {"code":1 , "comment":"用户验证失败"},
+                {"code":2 , "comment":"只有体检才能获取结构数据"}
+            ],
+            "rewrite":false
+        },
+        {
+            "classname":"RecoveryTrackGet",
+            "request_url":"/recoveryTrackGet",
+            "path":"/home/eric/workspace/CBC/src/main/java/com/xxsd/cbc/task/RecoveryTrackGetTask.java",
+            "request_params":[
+                {"field":"username", "comment":"用户名", "type":"String"},
+                {"field":"token", "comment":"Token", "type":"String"}
+            ],
+            "response_params":[
+                {"field":"track", "comment":"追踪数据结构", "type":"JSONArray", "notnull":true},
+                {"field":"complication", "comment":"并发病数据结构", "type":"JSONArray", "notnull":true}
+            ],
+            "error_codes":[
+                {"code":0 , "comment":"未知错误"},
+                {"code":1 , "comment":"用户验证失败"},
+                {"code":2 , "comment":"此用户暂无康复追踪设置"}
+            ],
+            "rewrite":false
+        },
+        {
+            "classname":"RecoveryTrackResult",
+            "request_url":"/recoveryTrackResult",
+            "path":"/home/eric/workspace/CBC/src/main/java/com/xxsd/cbc/task/RecoveryTrackResultTask.java",
+            "request_params":[
+                {"field":"username", "comment":"用户名", "type":"String"},
+                {"field":"token", "comment":"Token", "type":"String"},
+                {"field":"track", "comment":"追踪数据提交结果 field_id_Int value_值_Int(1,2,3,4 1=已经康复,2=有好转,3=无变化,4=恶化)", "type":"String"},
+                {"field":"complication", "comment":"并发病数据提交结果 field_id_Int value_值_Int(1,2 1=未出现,2=出现)", "type":"String"},
+                {"field":"time", "comment":"时间", "type":"String"},
+                {"field":"memo", "comment":"患者提交的备注", "type":"String"}
+            ],
+            "response_params":[
+            ],
+            "error_codes":[
+                {"code":0 , "comment":"未知错误"},
+                {"code":1 , "comment":"用户验证失败"},
+                {"code":2 , "comment":"已经提交过该周的报告"}
+            ],
+            "rewrite":false
+        },
+        {
+            "classname":"PatientHealth",
+            "request_url":"/patientHealth",
+            "path":"/home/eric/workspace/CBC/src/main/java/com/xxsd/cbc/task/PatientHealthTask.java",
+            "request_params":[
+                {"field":"username", "comment":"用户名", "type":"String"},
+                {"field":"token", "comment":"Token", "type":"String"}
+            ],
+            "response_params":[
+                {"field":"type", "comment":"类型id 1=血压，3=心率", "type":"int", "notnull":true},
+                {"field":"name", "comment":"名称", "type":"String", "notnull":true},
+                {"field":"construct", "comment":"", "type":"JSONArray", "notnull":true},
+                {"field":"data", "comment":"数据列", "type":"JSONArray", "notnull":true}
+            ],
+            "error_codes":[
+                {"code":0 , "comment":"未知错误"},
+                {"code":1 , "comment":"用户验证失败"}
+            ],
+            "rewrite":false
+        },
+        {
+            "classname":"PatientReview",
+            "request_url":"/patientReview",
+            "path":"/home/eric/workspace/CBC/src/main/java/com/xxsd/cbc/task/PatientReviewTask.java",
+            "request_params":[
+                {"field":"username", "comment":"用户名", "type":"String"},
+                {"field":"token", "comment":"Token", "type":"String"}
+            ],
+            "response_params":[
+                {"field":"case", "comment":"治疗列表", "type":"JSONArray", "notnull":true},
+                {"field":"review", "comment":"复诊列表", "type":"JSONArray", "notnull":true}
+            ],
+            "error_codes":[
+                {"code":0 , "comment":"未知错误"},
+                {"code":1 , "comment":"用户验证失败"}
+            ],
+            "rewrite":false
+        },
+        {
+            "classname":"MessageSend",
+            "request_url":"/messageSend",
+            "path":"/home/eric/workspace/CBC/src/main/java/com/xxsd/cbc/task/MessageSendTask.java",
+            "request_params":[
+                {"field":"username", "comment":"用户名", "type":"String"},
+                {"field":"token", "comment":"Token", "type":"String"},
+                {"field":"to_id", "comment":"接收者用户ID", "type":"int"},
+                {"field":"to_type", "comment":"对话人类型[D-doctor P-Patient U-User H-Hospital F-Patient Family]", "type":"String"},
+                {"field":"content", "comment":"信息内容", "type":"String"}
+            ],
+            "response_params":[
+            ],
+            "error_codes":[
+                {"code":0 , "comment":"未知错误"},
+                {"code":1 , "comment":"用户验证失败"},
+                {"code":2 , "comment":"没有接收者ID"},
+                {"code":3 , "comment":"消息内容"}
+            ],
+            "rewrite":false
+        },
+        {
+            "classname":"MessageGet",
+            "request_url":"/messageGet",
+            "path":"/home/eric/workspace/CBC/src/main/java/com/xxsd/cbc/task/MessageGetTask.java",
+            "request_params":[
+                {"field":"username", "comment":"用户名", "type":"String"},
+                {"field":"token", "comment":"Token", "type":"String"},
+                {"field":"pid", "comment":"对话人ID", "type":"int"},
+                {"field":"ptype", "comment":"对话人类型[D-doctor P-Patient U-User H-Hospital F-Patient Family]", "type":"String"},
+                {"field":"last_id", "comment":"最后一条消息ID(0或无该参数时返回最后十条)", "type":"int"}
+            ],
+            "response_params":[
+                {"field":"list", "comment":"消息列表", "type":"JSONArray", "notnull":true}
+            ],
+            "error_codes":[
+                {"code":0 , "comment":"未知错误"},
+                {"code":1 , "comment":"用户验证失败"},
+                {"code":2 , "comment":"缺少参数"},
+                {"code":3 , "comment":"未找到用户"},
+                {"code":4 , "comment":"参数ptype错误"}
+            ],
+            "rewrite":false
+        },
+        {
+            "classname":"ReviewReservationSet",
+            "request_url":"/reviewReservationSet",
+            "path":"/home/eric/workspace/CBC/src/main/java/com/xxsd/cbc/task/ReviewReservationSetTask.java",
+            "request_params":[
+                {"field":"username", "comment":"用户名", "type":"String"},
+                {"field":"token", "comment":"Token", "type":"String"},
+                {"field":"type", "comment":"预约类型 1=人工，2=远程", "type":"int"}
+            ],
+            "response_params":[
+            ],
+            "error_codes":[
+                {"code":0 , "comment":"未知错误"},
+                {"code":1 , "comment":"用户验证失败"},
+                {"code":2 , "comment":"上一次的预约正等待处理"},
+                {"code":3 , "comment":"预约失败"}
+            ],
+            "rewrite":false
+        },
+        {
+            "classname":"ReviewReservationGet",
+            "request_url":"/reviewReservationGet",
+            "path":"/home/eric/workspace/CBC/src/main/java/com/xxsd/cbc/task/ReviewReservationGetTask.java",
+            "request_params":[
+                {"field":"username", "comment":"用户名", "type":"String"},
+                {"field":"token", "comment":"Token", "type":"String"}
+            ],
+            "response_params":[
+                {"field":"scene", "comment":"人工预约 memo预约处理内容", "type":"JSONObject", "notnull":true},
+                {"field":"remote", "comment":"远程预约 memo预约处理内容 address邮寄地址", "type":"JSONObject", "notnull":true}
+            ],
+            "error_codes":[
+                {"code":0 , "comment":"未知错误"},
+                {"code":1 , "comment":"用户验证失败"},
+                {"code":2 , "comment":"上一次的预约正等待处理"},
+                {"code":3 , "comment":"预约失败"}
+            ],
+            "rewrite":true
+        },
+        {
+            "classname":"Live",
+            "request_url":"/live",
+            "path":"/home/eric/workspace/CBC/src/main/java/com/xxsd/cbc/task/LiveTask.java",
+            "request_params":[
+                {"field":"username", "comment":"用户名", "type":"String"},
+                {"field":"token", "comment":"Token", "type":"String"}
+            ],
+            "response_params":[
+                {"field":"live", "comment":"生活指导", "type":"String", "notnull":true}
+            ],
+            "error_codes":[
+                {"code":0 , "comment":"未知错误"},
+                {"code":1 , "comment":"用户验证失败"}
+            ],
+            "rewrite":false
+        },
+        {
+            "classname":"Food",
+            "request_url":"/food",
+            "path":"/home/eric/workspace/CBC/src/main/java/com/xxsd/cbc/task/FoodTask.java",
+            "request_params":[
+                {"field":"username", "comment":"用户名", "type":"String"},
+                {"field":"token", "comment":"Token", "type":"String"}
+            ],
+            "response_params":[
+                {"field":"food", "comment":"饮食", "type":"JSONObject", "notnull":true}
+            ],
+            "error_codes":[
+                {"code":0 , "comment":"未知错误"},
+                {"code":1 , "comment":"用户验证失败"}
+            ],
+            "rewrite":false
+        },
+        {
+            "classname":"FoodSo",
+            "request_url":"/foodSo",
+            "path":"/home/eric/workspace/CBC/src/main/java/com/xxsd/cbc/task/FoodSoTask.java",
+            "request_params":[
+                {"field":"username", "comment":"用户名", "type":"String"},
+                {"field":"token", "comment":"Token", "type":"String"},
+                {"field":"name", "comment":"搜索名称", "type":"String"}
+            ],
+            "response_params":[
+                {"field":"list", "comment":"搜索结果", "type":"JSONArray", "notnull":true}
+            ],
+            "error_codes":[
+                {"code":0 , "comment":"未知错误"},
+                {"code":1 , "comment":"用户验证失败"}
+            ],
+            "rewrite":false
+        },
+        {
+            "classname":"Medicine",
+            "request_url":"/medicine",
+            "path":"/home/eric/workspace/CBC/src/main/java/com/xxsd/cbc/task/MedicineTask.java",
+            "request_params":[
+                {"field":"username", "comment":"用户名", "type":"String"},
+                {"field":"token", "comment":"Token", "type":"String"}
+            ],
+            "response_params":[
+                {"field":"medicine", "comment":"药品", "type":"JSONArray", "notnull":true},
+                {"field":"sideeffect", "comment":"副作用", "type":"JSONArray", "notnull":true}
+            ],
+            "error_codes":[
+                {"code":0 , "comment":"未知错误"},
+                {"code":1 , "comment":"用户验证失败"}
+            ],
+            "rewrite":false
+        },
+        {
+            "classname":"SideEffect",
+            "request_url":"/sideEffect",
+            "path":"/home/eric/workspace/CBC/src/main/java/com/xxsd/cbc/task/SideEffectTask.java",
+            "request_params":[
+                {"field":"username", "comment":"用户名", "type":"String"},
+                {"field":"token", "comment":"Token", "type":"String"},
+                {"field":"result", "comment":"结果", "type":"String"}
+            ],
+            "response_params":[
+            ],
+            "error_codes":[
+                {"code":0 , "comment":"未知错误"},
+                {"code":1 , "comment":"用户验证失败"}
+            ],
+            "rewrite":false
+        }
+    ],
+    "package":"com.xxsd.cbc.task",
+    "template":"template_task.tp"
+}

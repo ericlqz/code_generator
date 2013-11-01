@@ -1,0 +1,30 @@
+    /** Resolve List ${classname} data from json */
+    public static List<${classname}> fromJsonMap(JSONObject object) {
+        List<${classname}> ${classname_lower}List = new ArrayList<${classname}>();
+        try {
+            Iterator keys = object.keys();
+            while (keys.hasNext()) {
+                String ${key} = (String)keys.next();
+                JSONArray datas = object.getJSONArray(${key});
+                for (int i = 0; i < datas.length(); i++) {
+                    JSONObject data = datas.getJSONObject(i);
+                    LogUtils.d(TAG, "Resolve ${classname_lower} data: " + data);
+                    if (!isDataValid(data)) {
+                        throw new Exception("response data invalid. response: " + data.toString());
+                    }
+
+                    ${classname} ${classname_lower} = ${classname}.fromJson(data);
+                    ${classname_lower}.${key} = ${key};
+
+                    ${classname_lower}List.add(${classname_lower});
+                }
+
+            }
+
+            return ${classname_lower}List;
+        } catch (Exception e) {
+            LogUtils.d(TAG, "Response data invalid.");
+            e.printStackTrace();
+            return null;
+        }
+    }

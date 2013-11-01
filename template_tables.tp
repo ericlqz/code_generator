@@ -1,0 +1,10 @@
+package ${package};
+
+public class ${classname} {
+
+    public static final String AUTHORITY = "${authority}";
+
+    private ${classname}() {}
+
+    ${data_tables}
+}
